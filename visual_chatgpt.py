@@ -1472,7 +1472,8 @@ class ConversationBot:
         self.models = {}
         # Load Basic Foundation Models
         for class_name, device in load_dict.items():
-            self.models[class_name] = globals()[class_name](device=device)
+            if(class_name != "InfinityOutPainting" and class_name != "ObjectSegmenting" and class_name != "ImageEditing" and class_name != "BackgroundRemoving"):
+                self.models[class_name] = globals()[class_name](device=device)
 
         # Load Template Foundation Models
         for class_name, module in globals().items():
@@ -1580,4 +1581,4 @@ if __name__ == '__main__':
         clear.click(bot.memory.clear)
         clear.click(lambda: [], None, chatbot)
         clear.click(lambda: [], None, state)
-    demo.launch(server_name="0.0.0.0", server_port=7861)
+    demo.launch(server_name="0.0.0.0", server_port=7861, share=True)
